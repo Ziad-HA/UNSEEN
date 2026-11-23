@@ -8,6 +8,8 @@ import usePageMeta from '../lib/usePageMeta'
 import ProductReviews from '../components/ProductReviews'
 import RecentlyViewed, { rememberRecentlyViewed } from '../components/RecentlyViewed'
 
+const money = (value) => new Intl.NumberFormat('en-EG', { style: 'currency', currency: 'EGP', maximumFractionDigits: 0 }).format(Number(value || 0))
+
 export default function Product() {
   const { id } = useParams()
   const navigate = useNavigate()
