@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useCart } from '../context/CartContext'
 
+const money = (value) => new Intl.NumberFormat('en-EG', { style: 'currency', currency: 'EGP', maximumFractionDigits: 0 }).format(Number(value || 0))
+
 export default function ProductQuickView({ product, onClose }) {
   const [size, setSize] = useState(product?.sizes?.[0] || '')
   const [color, setColor] = useState(product?.colors?.[0] || '')
