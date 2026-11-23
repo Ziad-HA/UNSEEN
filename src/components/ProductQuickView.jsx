@@ -37,11 +37,11 @@ export default function ProductQuickView({ product, onClose }) {
             <div className="quick-view-details">
               <p className="eyebrow">{product.tag} · {product.category}</p>
               <h2 id="quick-view-title">{product.name}</h2>
-              <strong className="quick-view-price">${product.price}</strong>
+              <strong className="quick-view-price">{money(product.price)}</strong>
               <p>{product.description}</p>
               <div className="quick-view-option"><span>Color · {color}</span><div>{product.colors.map((value) => <button key={value} type="button" className={color === value ? 'active' : ''} aria-pressed={color === value} onClick={() => setColor(value)}>{value}</button>)}</div></div>
               <div className="quick-view-option"><span>Choose size</span><div>{product.sizes.map((value) => <button key={value} type="button" className={size === value ? 'active' : ''} aria-pressed={size === value} onClick={() => setSize(value)}>{value}</button>)}</div></div>
-              <button type="button" className="btn btn-primary quick-view-add" disabled={product.soldOut} data-sound="add" onClick={() => { if (addItem(product, { size, color })) onClose() }}>{product.soldOut ? 'Sold out' : 'Add to bag — $' + product.price}</button>
+              <button type="button" className="btn btn-primary quick-view-add" disabled={product.soldOut} data-sound="add" onClick={() => { if (addItem(product, { size, color })) onClose() }}>{product.soldOut ? 'Sold out' : 'Add to bag — ' + money(product.price)}</button>
               <Link to={`/product/${product.id}`} className="quick-view-full" onClick={onClose}>View full details ↗</Link>
             </div>
           </motion.section>
