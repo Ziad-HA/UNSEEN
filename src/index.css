@@ -5786,3 +5786,122 @@ main h2 > span,
     transform: none;
   }
 }
+
+/* =========================================
+   UNSEEN — DEEP BLACK / HIGH CONTRAST FINISH
+   Richer blacks, cleaner whites and a punchier campaign video.
+========================================= */
+:root {
+  --bg: #000000;
+  --surface: #080808;
+  --line: #202020;
+  --text: #f7f7f4;
+  --muted: #a0a09a;
+}
+
+body {
+  background: #000;
+  color: #f7f7f4;
+}
+
+.nav {
+  background: rgba(0, 0, 0, .96);
+  border-bottom-color: #1d1d1d;
+}
+
+.nav-links {
+  background-color: #000;
+}
+
+.home-hero,
+.home-hero.video-hero {
+  background: #000;
+}
+
+.home-hero.video-hero > .hero-video {
+  filter: saturate(.92) contrast(1.2) brightness(.94);
+}
+
+.home-hero.video-hero .hero-overlay {
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(0,0,0,0) 24%, rgba(0,0,0,.42) 100%),
+    linear-gradient(0deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.5) 34%, rgba(0,0,0,.08) 72%, rgba(0,0,0,.12) 100%);
+}
+
+.home-hero.video-hero .home-hero-copy > h1 strong {
+  color: #fff;
+  text-shadow: 0 2px 2px rgba(0,0,0,.65), 0 0 48px rgba(0,0,0,.58);
+}
+
+.home-hero.video-hero .home-hero-copy > .eyebrow,
+.home-hero.video-hero .home-hero-copy > .lede {
+  text-shadow: 0 2px 12px rgba(0,0,0,.9);
+}
+
+.home-products,
+.home-lookbook,
+.section {
+  background-color: #000;
+}
+
+.home-story .split-copy,
+.cart-summary,
+.product-media,
+.product-gallery img,
+.checkout-form input,
+.auth-box,
+.account-order-card,
+.cart-drawer,
+.quick-view-panel,
+.drop-countdown {
+  background-color: #080808;
+}
+
+.home-final {
+  background: #050505;
+  border-top-color: #202020;
+}
+
+.footer {
+  background: #000;
+  border-top-color: #202020;
+}
+
+.product-card .product-meta p,
+.muted,
+.season-desc,
+.footer-cols a {
+  color: #a0a09a;
+}
+
+.btn-ghost,
+.filters button,
+.chips button,
+.qty,
+.thumbs button,
+.checkout-form input {
+  border-color: #292929;
+}
+
+.btn-ghost:hover,
+.filters button:hover,
+.chips button:hover {
+  border-color: var(--volt);
+}
+
+::selection {
+  background: var(--volt);
+  color: #000;
+}
+
+@media (max-width: 640px) {
+  .home-hero.video-hero .hero-overlay {
+    background:
+      linear-gradient(0deg, rgba(0,0,0,.97) 0%, rgba(0,0,0,.68) 44%, rgba(0,0,0,.16) 100%);
+  }
+
+  .home-hero.video-hero > .hero-video {
+    filter: saturate(.92) contrast(1.16) brightness(.9);
+  }
+}
+
