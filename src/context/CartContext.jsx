@@ -37,8 +37,25 @@ export function CartProvider({ children }) {
       if (!nextUserId) { setCartReady(true); return }
       const { data, error } = await supabase.from('saved_carts').select('items').eq('user_id', nextUserId).maybeSingle()
       if (!active) return
-      if (!error && Array.isArray(data?.items) && data.items.length) {
-        setItems((current) => current.length ? current : data.items)
+      if (!error && Array.isArray(data?.items)) {
+        const remoteItems = data.items.filter((item) =>
+          item && typeof item.key === 'string' && item.id
+          && Number.isFinite(Number(item.qty)) && Number(item.qty) > 0
+          && Number.isFinite(Number(item.price)) && Number(item.price) >= 0
+        )
+        setItems((current) => {
+          const merged = new Map(remoteItems.map((item) => [
+            item.key,
+            { ...item, qty: Math.min(99, Math.floor(Number(item.qty))), price: Number(item.price) },
+          ]))
+          current.forEach((item) => {
+            const saved = merged.get(item.key)
+            merged.set(item.key, saved
+              ? { ...saved, qty: Math.min(99, saved.qty + item.qty) }
+              : item)
+          })
+          return [...merged.values()]
+        })
       }
       setCartReady(true)
     }
