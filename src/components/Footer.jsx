@@ -26,14 +26,16 @@ export default function Footer() {
     }
     setNewsletterStatus('loading')
     setNewsletterMessage('')
-    const { error } = await supabase.from('newsletter_subscribers').insert({ email: cleanEmail })
-    if (error && error.code !== '23505') {
+    try {
+      const { error } = await supabase.from('newsletter_subscribers').insert({ email: cleanEmail })
+      if (error && error.code !== '23505') throw error
+      setNewsletterStatus('success')
+      setNewsletterMessage(error ? "You're already on the list." : "You're on the list. Thanks for joining UNSEEN.")
+      setEmail('')
+    } catch {
       setNewsletterStatus('error')
       setNewsletterMessage('We could not add your email. Please try again.')
-      return
     }
-    setNewsletterStatus('success')
-    setNewsletterMessage(error ? "You're already on the list." : "You're on the list. Thanks for joining UNSEEN.")
   }
 
   return (
