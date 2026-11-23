@@ -101,7 +101,7 @@ export default function Product() {
           <Link to="/shop" className="product-back-link">← Back to shop</Link>
           <p className="product-category">{product.tag} <span>·</span> {product.category}</p>
           <h1 className="product-title">{product.name}</h1>
-          <p className="product-price">${product.price}</p>
+          <p className="product-price">{money(product.price)}</p>
           <p className="product-description">{product.description}</p>
 
           <div className="product-detail-rule" />
