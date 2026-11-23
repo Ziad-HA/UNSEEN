@@ -22,7 +22,7 @@ export default function ProductCard({ product, priority = false }) {
             <span className="chip">{product.soldOut ? 'Sold out' : product.tag}</span>
             <span className="product-card-action" aria-hidden="true">View piece <span>↗</span></span>
           </div>
-          <div className="product-meta"><div><h3>{product.name}</h3><p>{product.category}</p></div><strong>${product.price}</strong></div>
+          <div className="product-meta"><div><h3>{product.name}</h3><p>{product.category}</p></div><strong>{money(product.price)}</strong></div>
         </TiltLink>
         <button type="button" className={`product-wishlist-btn ${saved ? 'is-saved' : ''}`} aria-label={saved ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`} aria-pressed={saved} onClick={() => toggleWishlist(product.id)}><motion.span key={String(saved)} style={{ display: 'inline-block' }} initial={{ scale: saved ? 0.6 : 1 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 320, damping: 14 }}>{saved ? '♥' : '♡'}</motion.span></button>
         <button type="button" className="product-quick-view-btn" onClick={() => setQuickViewOpen(true)}>Quick view <span>↗</span></button>
