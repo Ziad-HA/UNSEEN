@@ -3,20 +3,37 @@ import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { EASE } from '../lib/motion'
+import { supabase } from '../lib/supabase'
 
 export default function Footer() {
   const [email, setEmail] = useState('')
-  const [done, setDone] = useState(false)
+  const [newsletterStatus, setNewsletterStatus] = useState('idle')
+  const [newsletterMessage, setNewsletterMessage] = useState('')
   const reduce = useReducedMotion()
 
   const { pathname } = useLocation()
   const hideNewsletter =
     pathname === '/login' || pathname === '/reset-password'
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-    if (!email.trim()) return
-    setDone(true)
+  const onSubmit = async (event) => {
+    event.preventDefault()
+    const cleanEmail = email.trim().toLowerCase()
+    if (!cleanEmail) return
+    if (!supabase) {
+      setNewsletterStatus('error')
+      setNewsletterMessage('Newsletter signups are temporarily unavailable.')
+      return
+    }
+    setNewsletterStatus('loading')
+    setNewsletterMessage('')
+    const { error } = await supabase.from('newsletter_subscribers').insert({ email: cleanEmail })
+    if (error && error.code !== '23505') {
+      setNewsletterStatus('error')
+      setNewsletterMessage('We could not add your email. Please try again.')
+      return
+    }
+    setNewsletterStatus('success')
+    setNewsletterMessage(error ? "You're already on the list." : "You're on the list. Thanks for joining UNSEEN.")
   }
 
   return (
@@ -38,10 +55,8 @@ export default function Footer() {
               Get early access to new drops and exclusive releases.
             </p>
 
-            {done ? (
-              <p className="muted">
-                This is a preview — email signups are not connected yet.
-              </p>
+            {newsletterStatus === 'success' ? (
+              <p className="muted" role="status">{newsletterMessage}</p>
             ) : (
               <form className="newsletter" onSubmit={onSubmit}>
                 <input
@@ -49,14 +64,15 @@ export default function Footer() {
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
                   required
                 />
-
-                <button type="submit">
-                  JOIN ↗
+                <button type="submit" disabled={newsletterStatus === 'loading'}>
+                  {newsletterStatus === 'loading' ? 'JOINING…' : 'JOIN ↗'}
                 </button>
               </form>
             )}
+            {newsletterStatus === 'error' && <p className="muted" role="alert">{newsletterMessage}</p>}
           </div>
         )}
 
