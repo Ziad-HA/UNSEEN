@@ -5819,7 +5819,7 @@ body {
 }
 
 .home-hero.video-hero > .hero-video {
-  filter: saturate(.92) contrast(1.2) brightness(.94);
+  filter: saturate(.92) contrast(1.2) brightness(1.02);
 }
 
 .home-hero.video-hero .hero-overlay {
