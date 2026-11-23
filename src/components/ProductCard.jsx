@@ -4,6 +4,8 @@ import TiltLink, { Glare } from './TiltLink'
 import ProductQuickView from './ProductQuickView'
 import { useWishlist } from '../context/WishlistContext'
 
+const money = (value) => new Intl.NumberFormat('en-EG', { style: 'currency', currency: 'EGP', maximumFractionDigits: 0 }).format(Number(value || 0))
+
 export default function ProductCard({ product, priority = false }) {
   const [quickViewOpen, setQuickViewOpen] = useState(false)
   const secondaryImage = product.images?.[1]
