@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import useProducts from "../lib/useProducts";
 import { motion, useReducedMotion } from "motion/react";
 import ProductCard from "../components/ProductCard";
-import Hero3DLayer from "../components/Hero3DLayer";
 import OrbitGallery from "../components/OrbitGallery";
 import TiltLink, { Glare } from "../components/TiltLink";
 import { lookbook } from "../data/products";
@@ -52,7 +51,6 @@ export default function Home() {
           />
         )}
         <div className="hero-overlay" />
-        <Hero3DLayer />
         <div className="hero-copy home-hero-copy">
           <p className="eyebrow">Season 04 · Night Shift</p>
           <h1 aria-label="Stay unseen.">
